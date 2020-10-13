@@ -1,0 +1,15 @@
+.card-title {
+  font-family: 'Bungee', cursive;
+}
+
+body {
+  font-family: 'Bungee Hairline', cursive;
+}
+
+.btn {
+  background-color: purple;
+}
+
+.btn:hover {
+  background-color: olivedrab;
+}

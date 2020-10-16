@@ -16,6 +16,9 @@ const modalprompt = document.querySelectorAll('.modal')
 loadEventListeners()
 
 function loadEventListeners() {
+//DOM load local storage event
+  document.addEventListener('DOMContentLoaded', getTasks)
+
   //add task form event
   form.addEventListener('submit', addTask)
   //Remove task event
@@ -31,6 +34,58 @@ function loadEventListeners() {
   M.Timepicker.init(time, {})
 
 }
+
+//Get Tasks from Local Storage function
+function getTasks() {
+  let tasks
+  let dates
+  let timedeadline
+  //first want to check if there's any task in there
+  if (localStorage.getItem('tasks') === null && 
+  localStorage.getItem('dates') === null && 
+  localStorage.getItem('timedeadline') === null) {
+    tasks = []
+    dates = []
+    timedeadline = []
+  } else {
+    tasks = JSON.parse(localStorage.getItem('tasks'))
+    dates = JSON.parse(localStorage.getItem('dates'))
+    timedeadline = JSON.parse(localStorage.getItem('timedeadline'))
+  }
+  tasks.forEach(function(task) {
+    //copying dom elements from add task function and looping through each array in local storage
+    const li = document.createElement('li')
+    li.className = 'collection-item' 
+    li.appendChild(document.createTextNode(task))
+    const link = document.createElement('a')
+    link.className = 'delete-item btn modal-trigger secondary-content'
+    link.href = '#modal1'
+    link.innerHTML = '<i class="fa fa-check-square-o"></i>'
+    li.appendChild(link)
+    taskList.appendChild(li)
+  })
+  dates.forEach(function(date) {
+    console.log(date)
+    const li = document.createElement('li')
+    li.className = 'collection-item' 
+    const footer = document.createElement('footer')
+    footer.className = 'datepicking'
+    footer.appendChild(document.createTextNode('Complete by: ' + date))
+    footer.style.fontSize = 'small'
+    li.appendChild(footer)
+  })
+  timedeadline.forEach(function(time) {
+    console.log(time)
+    const li = document.createElement('li')
+    li.className = 'collection-item' 
+    const footer = document.createElement('footer')
+    footer.className = 'datepicking'
+    footer.appendChild(document.createTextNode('Complete by: ' + time))
+    footer.style.fontSize = 'small'
+    li.appendChild(footer)
+  })
+}
+
 
 //Add Task take an event parameter
 function addTask(e) {
@@ -59,15 +114,24 @@ function addTask(e) {
 
  
     //create a footer element
-
     const footer = document.createElement('footer')
     //add a classname
     footer.className = 'datepicking'
-    footer.appendChild(document.createTextNode(calender.value +  '. Try and complete by: ' + time.value))
+    footer.appendChild(document.createTextNode('Complete by: ' + calender.value + ' ' + time.value))
     footer.style.fontSize = 'small'
     li.appendChild(footer)
   
-    //clear input
+    //if dates and times aren't required, remove footer line from list
+    calender.value === '' && time.value === '' ? li.removeChild(footer) : li.appendChild(footer)
+    //if only date and time added and task field empty, dont add to list, and add prompt to add a task
+    taskInput.value === '' ? taskList.removeChild(li) && M.toast({ html: 'Whoops, you forgot to add a task first!' }) : taskList.appendChild(li)
+    M.toast({ html: 'Task successfully added.' })
+
+    //calling function to store in local storage 
+    storeTaskInLocalStorage(taskInput.value, calender.value, time.value)
+
+
+    //clear input once new task is added
     taskInput.value = ''
     calender.value = ''
     time.value = ''
@@ -75,6 +139,35 @@ function addTask(e) {
     e.preventDefault()
   }
 }
+
+//local storage function
+
+function storeTaskInLocalStorage(task, date, time) {
+  let tasks
+  let dates
+  let timedeadline
+  //first want to check if there's any task in there
+  if (localStorage.getItem('tasks') === null && 
+  localStorage.getItem('dates') === null && 
+  localStorage.getItem('timedeadline') === null) {
+    tasks = []
+    dates = []
+    timedeadline = []
+  } else {
+    tasks = JSON.parse(localStorage.getItem('tasks'))
+    dates = JSON.parse(localStorage.getItem('dates'))
+    timedeadline = JSON.parse(localStorage.getItem('timedeadline'))
+  }
+  tasks.push(task)
+  dates.push(date)
+  timedeadline.push(time)
+
+  localStorage.setItem('tasks', JSON.stringify(tasks))
+  localStorage.setItem('dates', JSON.stringify(dates))
+  localStorage.setItem('timedeadline', JSON.stringify(timedeadline))
+
+}
+
 
 
 //remove task

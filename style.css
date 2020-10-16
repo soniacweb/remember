@@ -18,17 +18,15 @@ body {
 }
 
 .btn {
-  background-color: purple;
+  background-color: black;
 }
 
 .btn:hover {
   background-color: olivedrab;
 }
 
-/* .collection-item:hover {
-  opacity: 100%;
-} */
 
+/* background animation */
 .bg{
   background:url(https://1.bp.blogspot.com/-DC008lu58Nc/W1LMf54UKXI/AAAAAAAAACQ/REydlqiHDecasKOrG7qdP1Z5GQdlRDdxgCLcBGAs/s1600/galaxy-blue.jpg) no-repeat;background-size:cover;
   height:100%;

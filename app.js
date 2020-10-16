@@ -74,6 +74,7 @@ function getTasks() {
     footer.style.fontSize = 'small'
     li.appendChild(footer)
   })
+  
   timedeadline.forEach(function(time) {
     console.log(time)
     const li = document.createElement('li')
@@ -125,7 +126,10 @@ function addTask(e) {
     calender.value === '' && time.value === '' ? li.removeChild(footer) : li.appendChild(footer)
     //if only date and time added and task field empty, dont add to list, and add prompt to add a task
     taskInput.value === '' ? taskList.removeChild(li) && M.toast({ html: 'Whoops, you forgot to add a task first!' }) : taskList.appendChild(li)
-    M.toast({ html: 'Task successfully added.' })
+    //avoids adding empty tasks to list if date or time inputted
+    calender.value === '' || time.value === '' ? taskList.removeChild(li) : taskList.appendChild(li)
+
+    M.toast({ html: 'Task successfully added.' }) 
 
     //calling function to store in local storage 
     storeTaskInLocalStorage(taskInput.value, calender.value, time.value)

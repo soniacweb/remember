@@ -6,11 +6,11 @@ const taskList = document.querySelector('.collection')
 const clearBtn = document.querySelector('.clear-tasks')
 const filter = document.querySelector('#filter')
 const taskInput = document.querySelector('#task')
-const Calender = document.querySelector('.datepicker')
+const calender = document.querySelector('.datepicker')
+const time = document.querySelector('.timepicker')
 const modalprompt = document.querySelectorAll('.modal')  
-var instances = M.Modal.init(modalprompt)
+// var instances = M.Modal.init(modalprompt)
 
-const yes = document.querySelector('.yes')
 
 //function to load all event listeners
 loadEventListeners()
@@ -25,15 +25,16 @@ function loadEventListeners() {
   //filter through the tasks event
   filter.addEventListener('keyup', filterTasks)
 
-  yes.addEventListener('click', removeTask)
+  // yes.addEventListener('click', removeTask)
 
-  M.Datepicker.init(Calender, {})
+  M.Datepicker.init(calender, {})
+  M.Timepicker.init(time, {})
 
 }
 
 //Add Task take an event parameter
 function addTask(e) {
-  if (taskInput.value === '' && Calender.value === '') {
+  if (taskInput.value === '' && calender.value === '' && time.value === '') {
     // alert('Add a task first!')
     M.toast({ html: 'Add a task first!' })  
   } else {
@@ -60,18 +61,16 @@ function addTask(e) {
     //create a footer element
 
     const footer = document.createElement('footer')
- 
     //add a classname
     footer.className = 'datepicking'
-    footer.appendChild(document.createTextNode(Calender.value))
+    footer.appendChild(document.createTextNode(calender.value +  '. Try and complete by: ' + time.value))
     footer.style.fontSize = 'small'
     li.appendChild(footer)
   
-
-
     //clear input
     taskInput.value = ''
-    Calender.value = ''
+    calender.value = ''
+    time.value = ''
 
     e.preventDefault()
   }
@@ -81,9 +80,8 @@ function addTask(e) {
 //remove task
 function removeTask(e) {
   // console.log('clicked yes!')
-
   if (e.target.parentElement.classList.contains('delete-item')) {
-    if (yes.value === true) {
+    if (confirm('Are You Sure?')) {
       e.target.parentElement.parentElement.remove()
     }
   }

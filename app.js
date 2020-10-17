@@ -187,7 +187,7 @@ function removeTask(e) {
 }
 
 function removeTaskFromLocalStorage(taskItem) {
-
+//need to check if there's anything in local sotrage to delete first- === null. if it is, set it to an empty array
   let tasks
   let dates
   let timedeadline
@@ -204,11 +204,12 @@ function removeTaskFromLocalStorage(taskItem) {
     timedeadline = JSON.parse(localStorage.getItem('timedeadline'))
   }
   tasks.forEach(function(task, index) {
-    if (taskItem.textContent === task) {
+    if (taskItem.textContent === task) { //check to see if the text content of the task matches the current task in the iteration- if it does, i want to delete
       tasks.splice(index, 1)
     }
   })
-  localStorage.setItem('tasks', JSON.stringify(tasks)) //need to compled the dates and time once i can figure out how to render them on ui 
+  localStorage.setItem('tasks', JSON.stringify(tasks)) //set local storage and rap in json.stringify
+  //need to compled the dates and time once i can figure out how to render them on ui 
 }
 
 //remove all tasks

@@ -96,9 +96,8 @@ function getTasks() {
 
 
 //Add Task take an event parameter
-function addTask(e) {
+function addTask(e) {  
   if (taskInput.value === '') {
-    // alert('Add a task first!')
     M.toast({ html: 'Add a task first!' })  
   } else {
   //create list of items from scratch- li element
@@ -129,19 +128,20 @@ function addTask(e) {
     footer.style.fontSize = 'small'
     li.appendChild(footer)
   
+ 
+  
+    //calling function to store in local storage 
+    storeTaskInLocalStorage(taskInput.value, calender.value, time.value)
+
+    M.toast({ html: 'Task successfully added.' }) 
+
     //if dates and times aren't required, remove footer line from list
     calender.value === '' && time.value === '' ? li.removeChild(footer) : li.appendChild(footer)
     //if only date and time added and task field empty, dont add to list, and add prompt to add a task
     taskInput.value === '' ? taskList.removeChild(li) && M.toast({ html: 'Whoops, you forgot to add a task first!' }) : taskList.appendChild(li)
     //avoids adding empty tasks to list if date or time inputted
     calender.value === '' || time.value === '' ? taskList.removeChild(li) : taskList.appendChild(li)
-  
-    M.toast({ html: 'Task successfully added.' }) 
-
-    //calling function to store in local storage 
-    storeTaskInLocalStorage(taskInput.value, calender.value, time.value)
-
-
+    
     //clear input once new task is added
     taskInput.value = ''
     calender.value = ''

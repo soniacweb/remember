@@ -30,8 +30,15 @@ function loadEventListeners() {
 
   // yes.addEventListener('click', removeTask)
 
-  M.Datepicker.init(calender, {})
-  M.Timepicker.init(time, {})
+  M.Datepicker.init(calender, {
+    showClearBtn: true,
+    clear: 'Remove' 
+  })
+
+  M.Timepicker.init(time, {
+    showClearBtn: true,
+    clear: 'Remove' 
+  })
 
 }
 

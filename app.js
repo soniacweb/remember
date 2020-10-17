@@ -90,7 +90,7 @@ function getTasks() {
 
 //Add Task take an event parameter
 function addTask(e) {
-  if (taskInput.value === '' && calender.value === '' && time.value === '') {
+  if (taskInput.value === '') {
     // alert('Add a task first!')
     M.toast({ html: 'Add a task first!' })  
   } else {
@@ -128,7 +128,7 @@ function addTask(e) {
     taskInput.value === '' ? taskList.removeChild(li) && M.toast({ html: 'Whoops, you forgot to add a task first!' }) : taskList.appendChild(li)
     //avoids adding empty tasks to list if date or time inputted
     calender.value === '' || time.value === '' ? taskList.removeChild(li) : taskList.appendChild(li)
-
+  
     M.toast({ html: 'Task successfully added.' }) 
 
     //calling function to store in local storage 
@@ -180,8 +180,35 @@ function removeTask(e) {
   if (e.target.parentElement.classList.contains('delete-item')) {
     if (confirm('Are You Sure?')) {
       e.target.parentElement.parentElement.remove()
+      //remove from ls
+      removeTaskFromLocalStorage(e.target.parentElement.parentElement)
     }
   }
+}
+
+function removeTaskFromLocalStorage(taskItem) {
+
+  let tasks
+  let dates
+  let timedeadline
+  //first want to check if there's any task in there
+  if (localStorage.getItem('tasks') === null && 
+  localStorage.getItem('dates') === null && 
+  localStorage.getItem('timedeadline') === null) {
+    tasks = []
+    dates = []
+    timedeadline = []
+  } else {
+    tasks = JSON.parse(localStorage.getItem('tasks'))
+    dates = JSON.parse(localStorage.getItem('dates'))
+    timedeadline = JSON.parse(localStorage.getItem('timedeadline'))
+  }
+  tasks.forEach(function(task, index) {
+    if (taskItem.textContent === task) {
+      tasks.splice(index, 1)
+    }
+  })
+  localStorage.setItem('tasks', JSON.stringify(tasks)) //need to compled the dates and time once i can figure out how to render them on ui 
 }
 
 //remove all tasks

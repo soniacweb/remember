@@ -6,6 +6,11 @@ A task managing app.
 
 Full write up to follow.
 
+<img src='https://i.imgur.com/fBZrsn0.png' alt='logo'> 
+
+
+
+
 ##### Aim
 - Exploring CRUD operations
 - Dom manipulation 

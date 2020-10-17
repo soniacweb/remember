@@ -33,10 +33,6 @@ body {
   color: black;
 }
 
-.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
-  background-color: purple;
-}
-
 /* background animation */
 /* .bg{
   background:url(https://1.bp.blogspot.com/-DC008lu58Nc/W1LMf54UKXI/AAAAAAAAACQ/REydlqiHDecasKOrG7qdP1Z5GQdlRDdxgCLcBGAs/s1600/galaxy-blue.jpg) no-repeat;background-size:cover;

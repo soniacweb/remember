@@ -46,7 +46,14 @@ font-family: 'Bungee', cursive;
   color: black;
 }
 
+.datepicker-table td.is-selected {
+  background-color: purple;
+  color: #fff;
+}
 
+ .timepicker-minutes {
+  background-color: purple;
+}
 /* background animation */
 /* .bg{
   background:url(https://1.bp.blogspot.com/-DC008lu58Nc/W1LMf54UKXI/AAAAAAAAACQ/REydlqiHDecasKOrG7qdP1Z5GQdlRDdxgCLcBGAs/s1600/galaxy-blue.jpg) no-repeat;background-size:cover;
